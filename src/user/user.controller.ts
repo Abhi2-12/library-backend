@@ -8,6 +8,7 @@ import {
   ParseIntPipe,
   Put,
   Body,
+  BadRequestException,
 } from '@nestjs/common';
 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -63,5 +64,16 @@ export class UserController {
   async deleteUser(@Param('id', ParseIntPipe) id: number) {
     await this.userService.deleteUser(id);
     return { message: `User with ID ${id} has been deleted` };
+  }
+
+  // ✅ Get users by role
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.Admin)
+  @Get('role/:role')
+  async getUsersByRole(@Param('role') role: string) {
+    if (!Object.values(UserRole).includes(role as UserRole)) {
+      throw new BadRequestException('Invalid role parameter');
+    }
+    return this.userService.findByRole(role as UserRole);
   }
 }

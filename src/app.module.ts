@@ -10,6 +10,7 @@ import { DonationModule } from './donation/donation.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { FineModule } from './fine/fine.module';
+import { EmailModule } from './email/email.module'; 
 
 @Module({
   imports: [
@@ -30,8 +31,9 @@ import { FineModule } from './fine/fine.module';
     AuthModule,
     UserModule,
     FineModule,
+    EmailModule,
   ],
-  // controllers: [AppController],
-  // providers: [AppService],
+   controllers: [AppController],
+   providers: [AppService],
 })
 export class AppModule {}
