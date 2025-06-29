@@ -105,4 +105,16 @@ export class UserService {
   async findByRole(role: UserRole): Promise<User[]> {
     return this.userRepository.find({ where: { role } });
   }
+
+  // Find user by reset token
+async findByResetToken(token: string): Promise<User | null> {
+  return this.userRepository.findOne({ where: { resetToken: token } });
+}
+
+// Save updated user with reset token or password
+async save(user: User): Promise<User> {
+  return this.userRepository.save(user);
+}
+
+
 }

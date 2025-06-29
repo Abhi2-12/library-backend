@@ -25,4 +25,12 @@ export class User {
 
   @Column({ type: 'enum', enum: UserRole, default: UserRole.Guest })
   role: UserRole;
+
+  // ✅ New fields for reset password
+  @Column({ nullable: true })
+  resetToken: string;
+
+  @Column({ type: 'timestamp', nullable: true })
+  resetTokenExpires: Date;
+  
 }
